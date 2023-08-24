@@ -18,6 +18,17 @@ const names = [
     "teacher",
     "gardner"
   ];
+
+  const prices = [
+    25,
+    51,
+    43,
+    81,
+    43,
+    76,
+    47,
+    72
+  ];
   
   const freelancers = [
     { name: "Dr. Slice", price: 25, occupation: "gardener" },
@@ -54,4 +65,40 @@ function containers(){
         containerOccupations.appendChild(occupation);
     });
 }
-containers()
+containers();
+
+function getRandomItem(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+function addRandomFreelancer() {
+    const randomName = getRandomItem(names);
+    const randomOccupation = getRandomItem(occupations);
+    const randomPrice = getRandomItem(prices);
+
+    const newFreelancer = {
+        name: randomName,
+        occupation: randomOccupation,
+        price: randomPrice
+    };
+
+    freelancers.push(newFreelancer);
+    updateContainers();
+}
+
+function updateContainers() {
+    const newFreelancer = freelancers[freelancers.length - 1];
+
+    const name = document.createElement('p');
+    name.textContent = newFreelancer.name;
+    containerNames.appendChild(name);
+
+    const price = document.createElement('p');
+    price.textContent = `$${newFreelancer.price}`;
+    containerPrices.appendChild(price);
+
+    const occupation = document.createElement('p');
+    occupation.textContent = newFreelancer.occupation;
+    containerOccupations.appendChild(occupation);
+}
+setInterval(addRandomFreelancer, 1000);
